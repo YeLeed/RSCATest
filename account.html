@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My RSCA | RSC Anderlecht</title>
+<link rel="icon" href="assets/crest.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/rsca.css?v=20261106">
+</head>
+<body>
+
+<div class="utility">
+  <div class="wrap">
+    <div class="langs" id="langs">
+      <button type="button" data-lang="nl">nl</button>
+      <button type="button" data-lang="fr">fr</button>
+      <button type="button" data-lang="en" class="active">en</button>
+    </div>
+    <div class="links">
+      <a href="#" onclick="return false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1a2 2 0 0 0 0 4v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1a2 2 0 0 0 0-4z"/><path d="M13 7v10"/></svg><span>Tickets</span></a>
+      <a href="#" onclick="return false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 14H5z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><span>Webshop</span></a>
+      <a href="#" id="utility-logout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg><span>Log out</span></a>
+    </div>
+  </div>
+</div>
+
+<header class="header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="RSC Anderlecht">
+      <img src="assets/crest.svg" alt="">
+      <span class="wordmark" data-wordmark></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#" onclick="return false">News</a>
+      <a href="#" onclick="return false">Teams</a>
+      <a href="#" onclick="return false">Tickets</a>
+      <a href="#" onclick="return false">Memberships</a>
+      <a href="#" onclick="return false">Business</a>
+      <a href="#" onclick="return false">Fan</a>
+      <a href="#" onclick="return false">Club</a>
+      <a href="index.html">Help</a>
+    </nav>
+    <div class="header-actions">
+      <div class="user-chip"><span class="avatar" id="chip-initials"></span><span><span class="u-name" id="chip-name"></span><br><span class="u-sub" id="chip-sub"></span></span></div>
+      <button class="btn btn-ghost" type="button" id="logout-btn">Log out</button>
+    </div>
+  </div>
+</header>
+
+<section class="account-hero">
+  <div class="wrap">
+    <span class="avatar" id="hero-initials"></span>
+    <div>
+      <h1 id="hero-title"></h1>
+      <div class="meta" id="hero-meta"></div>
+    </div>
+    <div class="hero-actions">
+      <button class="btn btn-light" type="button" data-open-messenger><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Ask the assistant</button>
+    </div>
+  </div>
+</section>
+
+<main class="wrap account-layout">
+  <aside class="subnav" aria-label="My RSCA">
+    <ul id="subnav"></ul>
+  </aside>
+  <div class="stack" id="content"></div>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-bottom" style="margin-top:0;padding-top:0;border:0">
+      <span>© 2026 RSC Anderlecht · Fin demo environment, not production</span>
+      <span class="legal"><a href="#" onclick="return false">Cookie Policy</a><a href="#" onclick="return false">Privacy Policy</a><a href="#" onclick="return false">Terms &amp; Conditions</a><a href="#" onclick="return false">Stadium Regulations</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="persona_jwt.js"></script>
+<script src="assets/app.js?v=20261106"></script>
+<script src="assets/help-drawer.js?v=20261106"></script>
+<script>
+(function () {
+  var rsca = window.rscaDemo;
+  if (!rsca) return;
+  var key = rsca.currentPersona();
+  if (!key) return;
+  var me = rsca.PERSONAS[key];
+  var esc = rsca.esc, longDate = rsca.longDate, euro = rsca.euro, timeOf = rsca.timeOf;
+  var M = rsca.MATCH;
+
+  fetch('assets/wordmark.svg').then(function (r) { return r.text(); }).then(function (svg) {
+    document.querySelectorAll('[data-wordmark]').forEach(function (el) { el.innerHTML = svg; });
+  }).catch(function () {});
+
+  var ICON = {
+    check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/></svg>',
+    alert: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>',
+    ok: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>',
+    ticket: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1a2 2 0 0 0 0 4v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1a2 2 0 0 0 0-4z"/><path d="M13 7v10"/></svg>',
+    user: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>',
+    card: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>',
+    star: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>',
+    list: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg>',
+    users: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0 1 14 0"/><circle cx="17" cy="9" r="2.5"/><path d="M16 15.5a5 5 0 0 1 6 4.5"/></svg>',
+    gift: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="5" rx="1"/><path d="M5 13v8h14v-8"/><path d="M12 8v13"/><path d="M12 8a3 3 0 1 0-3-3c0 2 3 3 3 3zm0 0a3 3 0 1 1 3-3c0 2-3 3-3 3z"/></svg>',
+    cog: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>',
+    share: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>',
+    tag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><path d="M7 7h.01"/></svg>',
+    chat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'
+  };
+  var STATUS = { completed: ['Completed', 'chip-ok'], failed: ['Payment received, tickets not issued', 'chip-bad'], cancelled: ['Cancelled, hold released', 'chip-warn'] };
+  var FIRST = me.name.split(' ')[0];
+  var upcoming = me.orders.filter(function (o) { return o.match_date === M.date; });
+  var tickets = [].concat.apply([], upcoming.map(function (o) { return o.tickets; }));
+  var mine = tickets.filter(function (t) { return t.mauve_id === me.mauve_id; });
+  var issue = me.orders.filter(function (o) { return o.issue; })[0];
+  var chip = function (s) { var v = STATUS[s] || [s, 'chip-grey']; return '<span class="chip ' + v[1] + '">' + esc(v[0]) + '</span>'; };
+
+  document.getElementById('chip-initials').textContent = me.initials;
+  document.getElementById('chip-name').textContent = me.name;
+  document.getElementById('chip-sub').textContent = 'Mauve ID ' + me.mauve_id;
+  document.getElementById('hero-initials').textContent = me.initials;
+  var hour = new Date().getHours();
+  document.getElementById('hero-title').textContent = (hour < 12 ? 'Good morning, ' : hour < 18 ? 'Good afternoon, ' : 'Good evening, ') + FIRST;
+  document.getElementById('hero-meta').innerHTML =
+    '<span class="badge">' + ICON.tag + 'Mauve ID ' + esc(me.mauve_id) + '</span>' +
+    '<span class="badge">' + ICON.check + 'Verified via ' + esc(me.verified) + '</span>' +
+    '<span class="badge gold">' + ICON.star + esc(me.membership.name) + '</span>' +
+    '<span class="badge">Fan since ' + esc(me.since) + '</span>';
+
+  document.getElementById('subnav').innerHTML = [
+    ['Overview', ICON.user, '', true], ['Tickets', ICON.ticket, mine.length ? '<span class="count">' + mine.length + '</span>' : ''],
+    ['Abo', ICON.card, ''], ['Memberships', ICON.star, ''], ['Orders', ICON.list, issue ? '<span class="count warn">1</span>' : ''],
+    ['Friends &amp; Family', ICON.users, me.friends.length ? '<span class="count">' + me.friends.length + '</span>' : ''], ['Vouchers', ICON.gift, ''], ['Settings', ICON.cog, '']
+  ].map(function (r) { return '<li><a href="#" onclick="return false"' + (r[3] ? ' class="active"' : '') + '>' + r[1] + r[0] + r[2] + '</a></li>'; }).join('');
+
+  var html = '';
+  if (issue && issue.issue === 'payment_captured_tickets_not_issued') {
+    html += '<div class="alert bad" style="--i:0">' + ICON.alert + '<div class="a-body"><b>We received your payment, but your tickets haven\'t been issued</b>' +
+      '<p>Order ' + esc(issue.txn) + ' for ' + esc(issue.match) + ' (' + esc(euro(issue.amount)) + ') didn\'t complete on the ticketing side. Ask the assistant and we\'ll look into it straight away.</p></div>' +
+      '<button class="btn btn-primary" type="button" data-say="I paid for two tickets for the Club Brugge match but they are not in my app.">Ask about this order</button></div>';
+  } else if (issue && issue.issue === 'payment_not_captured') {
+    html += '<div class="alert warn" style="--i:0">' + ICON.alert + '<div class="a-body"><b>Your order ' + esc(issue.txn) + ' didn\'t complete</b>' +
+      '<p>The purchase timed out before payment was captured. No tickets were issued and any amount shown on your card is a temporary hold. Seats for ' + esc(M.away) + ' may still be available.</p></div>' +
+      '<button class="btn btn-primary" type="button" data-say="My card was charged €37 but the purchase failed and I have no tickets.">Ask about this order</button></div>';
+  } else if (mine.length) {
+    var other = tickets.filter(function (t) { return t.mauve_id !== me.mauve_id; });
+    html += '<div class="alert ok" style="--i:0">' + ICON.ok + '<div class="a-body"><b>Your ticket' + (mine.length > 1 ? 's are' : ' is') + ' ready for ' + esc(M.home) + ' vs ' + esc(M.away) + '</b>' +
+      '<p>Open it once in the RSCA app before you travel so it works offline.' + (other.length ? ' The seat assigned to ' + esc(other[0].name) + ' only appears in their own app.' : '') + '</p></div>' +
+      '<button class="btn btn-primary" type="button" data-say="I bought two tickets for Club Brugge but I only see one in my app.">Ask the assistant</button></div>';
+  }
+
+  var d = M.date.slice(0, 10).split('-');
+  var ticketRows = tickets.map(function (t) {
+    var own = t.mauve_id === me.mauve_id;
+    return '<div class="ticket' + (own ? '' : ' dim') + '"><span class="tk-icon">' + ICON.ticket + '</span>' +
+      '<span><span class="tk-seat">' + esc(t.seat) + '</span><span class="tk-sub">Assigned to ' + esc(t.name) + ' · Mauve ID ' + esc(t.mauve_id) + '</span></span>' +
+      (own ? '<span class="chip chip-ok">In your app</span>' : '<span class="chip chip-grey">In ' + esc(t.name.split(' ')[0]) + '\'s app</span>') + '</div>';
+  }).join('');
+  html += '<section class="card" style="--i:1"><div class="card-head"><h2>Next match</h2><span class="card-meta">Tickets are digital only and appear under Profile, then Tickets in the app</span></div>' +
+    '<div class="match"><div class="m-date"><b>' + esc(+d[2]) + '</b><span>' + esc(longDate(M.date).split(' ')[1].slice(0, 3)) + '</span></div>' +
+    '<div><div class="m-comp">' + esc(M.competition) + '</div><div class="m-teams">' + esc(M.home) + ' vs ' + esc(M.away) + '</div><div class="m-meta">' + esc(longDate(M.date)) + ' · ' + esc(timeOf(M.date)) + ' · ' + esc(M.venue) + '</div></div>' +
+    '<a class="btn btn-light" href="#" onclick="return false">Matchday info</a></div>' +
+    (tickets.length ? '<div class="ticket-list">' + ticketRows + '</div>' :
+      '<div class="empty"><b>No tickets issued for this match</b>' + (issue ? 'Order ' + esc(issue.txn) + ' is ' + esc(STATUS[issue.status][0].toLowerCase()) + '.' : 'Tickets you buy or receive appear here.') + '</div>') +
+    '</section>';
+
+  var orderRows = me.orders.map(function (o) {
+    return '<tr' + (o.issue ? ' class="attention"' : '') + '><td class="mono">' + esc(o.txn) + '<span class="sub">' + esc(longDate(o.at)) + ' · ' + esc(timeOf(o.at)) + '</span></td>' +
+      '<td>' + esc(o.match) + '<span class="sub">' + esc(longDate(o.match_date)) + ' · ' + esc(M.venue) + '</span></td>' +
+      '<td class="num">' + esc(euro(o.amount)) + '<span class="sub">' + (o.payment === 'captured' ? 'Paid' : 'Hold only') + '</span></td><td>' + chip(o.status) + '</td></tr>';
+  }).join('');
+  html += '<section class="card" style="--i:2"><div class="card-head"><h2>Orders</h2><a class="card-link" href="#" onclick="return false">Order history</a></div>' +
+    '<table><thead><tr><th>Transaction</th><th>Match</th><th class="num">Amount</th><th>Status</th></tr></thead><tbody>' + orderRows + '</tbody></table></section>';
+
+  html += '<div class="two-col">' +
+    '<section class="card member-card" style="--i:3"><div class="mc-tier">' + esc(me.membership.tier) + '</div><div class="mc-name">' + esc(me.membership.name) + '</div>' +
+    '<ul>' + me.membership.benefits.map(function (b) { return '<li>' + esc(b) + '</li>'; }).join('') + '</ul>' +
+    '<div class="kv" style="margin-top:12px"><span class="k">Renews</span><span class="v">' + esc(longDate(me.membership.renews)) + '</span></div></section>' +
+    '<section class="card" style="--i:4"><div class="card-head"><h2>Friends &amp; Family</h2><a class="card-link" href="#" onclick="return false">Add a Mauve ID</a></div>' +
+    (me.friends.length ? me.friends.map(function (f) { return '<div class="friend"><span class="avatar">' + esc(f.initials) + '</span><span><div>' + esc(f.name) + '</div><div class="f-sub">Mauve ID ' + esc(f.mauve_id) + ' · linked</div></span></div>'; }).join('') :
+      '<div class="empty" style="margin-top:0"><b>No linked accounts yet</b>Link a friend\'s Mauve ID to buy tickets for each other.</div>') +
+    '</section></div>';
+
+  html += '<section class="card" style="--i:5"><div class="card-head"><h2>Quick actions</h2></div><div class="quick">' +
+    '<button type="button" onclick="return false">' + ICON.share + 'Share your seat<span>Transfer a ticket to a friend</span></button>' +
+    '<button type="button" onclick="return false">' + ICON.tag + 'RSCA Resale<span>Sell your seat when the match is sold out</span></button>' +
+    '<button type="button" data-open-messenger>' + ICON.chat + 'Ask the assistant<span>Tickets, orders, memberships</span></button></div></section>';
+
+  document.getElementById('content').innerHTML = html;
+
+  document.querySelectorAll('[data-open-messenger]').forEach(function (b) { b.addEventListener('click', rsca.show); });
+  document.querySelectorAll('[data-say]').forEach(function (b) { b.addEventListener('click', function () { rsca.say(b.dataset.say); }); });
+  document.getElementById('logout-btn').addEventListener('click', rsca.signOut);
+  document.getElementById('utility-logout').addEventListener('click', function (e) { e.preventDefault(); rsca.signOut(); });
+  document.getElementById('langs').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    document.querySelectorAll('#langs button').forEach(function (x) { x.classList.toggle('active', x === b); });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,56 +1,257 @@
-
 <!doctype html>
-<html>
-  <head>
-    <title>Fin ZD demo</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FAQ | RSC Anderlecht</title>
+<link rel="icon" href="assets/crest.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/rsca.css?v=20261106">
+</head>
+<body>
 
-    <script>
-      function reset() {
-        const cookies = document.cookie.split(";");
-
-        for (let i = 0; i < cookies.length; i++) {
-
-            const cookie = cookies[i];
-
-            const eqPos = cookie.indexOf("=");
-
-            const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-
-            // Set the cookie's expiration date to a past date to delete it
-
-            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
-
-        }
-
-        window.localStorage.clear();
-        window.sessionStorage.clear();
-        window.location.reload();
-
-      }
-    </script>
-  </head>
-  <body class="p-6 flex flex-col flex-1 items-center justify-center min-h-screen bg-cover" style="background-image: url('https://downloads.intercomcdn.com/i/o/1051523575/8c16c6bb97ae791131ead20c/blur.jpg')">
-    <div class="flex flex-col space-y-2 items-center">
-      <div>
-        <img src="https://static.intercomassets.com/assets/default-avatars/fin/128-6a5eabbb84cc2b038b2afc6698ca0a974faf7adc9ea9f0fb3c3e78ac12543bc5.png" height="50" width="50"  >
-      </div>
-      <button class="bg-black text-white p-2 m-2 rounded hover:bg-opacity-75" onclick="reset()">Reset</button>
+<div class="utility">
+  <div class="wrap">
+    <div class="langs" id="langs">
+      <button type="button" data-lang="nl">nl</button>
+      <button type="button" data-lang="fr">fr</button>
+      <button type="button" data-lang="en" class="active">en</button>
     </div>
-    <script>
-      window.intercomSettings = {
-        api_base: "https://api-iam.intercom.io",
-        app_id: "n74njcpw",
-      }
-    </script>
-    
-    
-    <script>
-      // We pre-filled your app ID in the widget URL: 'https://widget.intercom.io/widget/mw2u5h8i'
-      (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',w.intercomSettings);}else{var d=document;var i=function(){i.c(arguments);};i.q=[];i.c=function(args){i.q.push(args);};w.Intercom=i;var l=function(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/mw2u5h8i';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};if(document.readyState==='complete'){l();}else if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
-    </script>
-    <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=8e34671c-b79f-4163-8738-806e88691ceff1"> </script>
-  </body>
+    <div class="links">
+      <a href="#" onclick="return false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1a2 2 0 0 0 0 4v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1a2 2 0 0 0 0-4z"/><path d="M13 7v10"/></svg><span>Tickets</span></a>
+      <a href="#" onclick="return false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 14H5z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><span>Webshop</span></a>
+      <a href="#" id="utility-login"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span id="utility-login-label">Login</span></a>
+    </div>
+  </div>
+</div>
+
+<header class="header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="RSC Anderlecht">
+      <img src="assets/crest.svg" alt="">
+      <span class="wordmark" data-wordmark></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#" onclick="return false">News</a>
+      <a href="#" onclick="return false">Teams</a>
+      <a href="#" onclick="return false">Tickets</a>
+      <a href="#" onclick="return false">Memberships</a>
+      <a href="#" onclick="return false">Business</a>
+      <a href="#" onclick="return false">Fan</a>
+      <a href="#" onclick="return false">Club</a>
+      <a href="#" class="active" onclick="return false">Help</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" type="button" aria-label="Search" id="search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+      <a class="btn btn-primary" href="#" onclick="return false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1a2 2 0 0 0 0 4v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1a2 2 0 0 0 0-4z"/><path d="M13 7v10"/></svg>Tickets</a>
+      <button class="btn btn-outline" type="button" id="login-btn">Login</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="crumbs"><a href="#" onclick="return false">Home</a><span>›</span><a href="#" onclick="return false">Help</a><span>›</span><span>FAQ</span></div>
+    <h1>FAQ</h1>
+    <p class="lede">Find the answers you're looking for. Pick a section below, or <b>ask our assistant</b> anything about tickets, your Mauve ID, memberships and matchday at Lotto Park.</p>
+    <form class="search" id="search-form" autocomplete="off">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input type="text" id="search-input" placeholder="Ask a question, e.g. where do I find my tickets in the app?" aria-label="Ask a question">
+      <button class="btn btn-primary" type="submit">Ask</button>
+    </form>
+    <div class="hero-note"><span class="dot"></span>Our assistant is online 24/7 and answers in Nederlands, Français and English.</div>
+  </div>
+</section>
+
+<main class="wrap faq-layout">
+  <aside class="explore">
+    <h2>Explore</h2>
+    <ul>
+      <li><a href="#" onclick="return false" class="active">Matchday Info</a></li>
+      <li><a href="#" onclick="return false">Tickets &amp; ABO</a></li>
+      <li><a href="#" onclick="return false">Memberships</a></li>
+      <li><a href="#" onclick="return false">Business &amp; Hospitality</a></li>
+      <li><a href="#" onclick="return false">Website &amp; App</a></li>
+      <li><a href="#" onclick="return false">Neerpede Academy</a></li>
+      <li><a href="#" onclick="return false">Merchandising &amp; Shop</a></li>
+    </ul>
+    <div class="explore-aside">
+      <strong>Can't find it?</strong>
+      Our assistant knows every FAQ on this site and can look into your order when you're logged in.
+      <button class="btn btn-primary" type="button" data-open-messenger>Ask the assistant</button>
+    </div>
+  </aside>
+
+  <div class="faq-main">
+    <div class="notice">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+      <div><b>Coming by car?</b> Roadworks on the Ring may cause extra delays. Exit 13 (Dilbeek) is closed and exit 14 (Westland) has been shortened. Keep right, get in lane early and let others merge.</div>
+    </div>
+    <h2>Find the answers you're looking for</h2>
+    <p>Select an FAQ section below for answers to common questions about RSC Anderlecht. If you cannot find an answer to your query, our assistant and the fan service team are here to help.</p>
+    <div class="tiles">
+      <a class="tile" style="--i:0" href="https://www.rsca.be/en/faqs/matchday-info" target="_blank" rel="noopener">
+        <span class="t-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10c0-3 4-5 9-5s9 2 9 5-4 5-9 5-9-2-9-5z"/><path d="M3 10v4c0 3 4 5 9 5s9-2 9-5v-4"/><path d="M12 5v14"/></svg></span>
+        <h3>Matchday Info</h3>
+        <p>Digital tickets and stadium access, getting to Lotto Park, reusable cups, safety and facilities.</p>
+        <span class="t-link">To the FAQ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="tile" style="--i:1" href="https://www.rsca.be/en/faqs/tickets-subscriptions" target="_blank" rel="noopener">
+        <span class="t-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1a2 2 0 0 0 0 4v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1a2 2 0 0 0 0-4z"/><path d="M13 7v10"/></svg></span>
+        <h3>Tickets &amp; ABO</h3>
+        <p>RSCA account and Mauve ID, season tickets, prices, RSCA Resale and sharing your seat, Women, Futures and Futsal.</p>
+        <span class="t-link">To the FAQ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="tile" style="--i:2" href="https://www.rsca.be/en/faqs/membership" target="_blank" rel="noopener">
+        <span class="t-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg></span>
+        <h3>Memberships</h3>
+        <p>Mauve TV, Mauve Ket for the youngest fans, and choosing between Mauve+ Silver and Mauve+ Gold.</p>
+        <span class="t-link">To the FAQ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="tile" style="--i:3" href="https://www.rsca.be/en/faqs/business-hospitality" target="_blank" rel="noopener">
+        <span class="t-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/></svg></span>
+        <h3>Business &amp; Hospitality</h3>
+        <p>RSCA Business Portal and access, business seats and hospitality, gastronomy packages and business areas.</p>
+        <span class="t-link">To the FAQ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="tile" style="--i:4" href="https://www.rsca.be/en/faqs/website-app" target="_blank" rel="noopener">
+        <span class="t-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></span>
+        <h3>Website &amp; App</h3>
+        <p>Download the RSCA app, log in, find your tickets and ABO, buy merchandise and watch Mauve TV.</p>
+        <span class="t-link">To the FAQ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="tile" style="--i:5" href="https://www.rsca.be/en/faqs/neerpede-academy" target="_blank" rel="noopener">
+        <span class="t-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 9 10-5 10 5-10 5z"/><path d="M6 11.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.5"/><path d="M22 9v6"/></svg></span>
+        <h3>Neerpede Academy</h3>
+        <p>Joining the youth academy, trial sessions, registrations and talent days at RSCA Neerpede.</p>
+        <span class="t-link">To the FAQ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="tile" style="--i:6" href="https://www.rsca.be/en/faqs/merchandising-shop" target="_blank" rel="noopener">
+        <span class="t-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8l2 3 3 2-3 4v9H6v-9L3 8l3-2z"/><path d="M8 3a4 4 0 0 0 8 0"/></svg></span>
+        <h3>Merchandising &amp; Shop</h3>
+        <p>Webshop orders and delivery, the Fanshop at Lotto Park, discounts, exchanges and shirt printing.</p>
+        <span class="t-link">To the FAQ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+</main>
+
+<section class="contact-band">
+  <div class="wrap">
+    <div>
+      <h2>Still looking for an answer?</h2>
+      <p>If your question isn't covered in our FAQs, our assistant can help right away, and our team is happy to pick it up from there.</p>
+    </div>
+    <div class="actions">
+      <button class="contact-card" type="button" data-open-messenger>
+        <span class="cc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+        <span><span class="cc-title">Chat with us</span><span class="cc-sub">Online now</span></span>
+      </button>
+      <a class="btn btn-outline" href="https://www.rsca.be/en/help/contact" target="_blank" rel="noopener">Contact form</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="addr">
+        <img src="assets/crest.svg" alt="RSC Anderlecht">
+        RSC Anderlecht<br>Av. Théo Verbeeck 2,<br>1070 Anderlecht,<br>Belgium
+        <div class="social" aria-hidden="true">
+          <span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3c-2.8 0-4 1.8-4 4v2H7v4h3v6h4v-6h3l1-4h-4V8.5c0-.3.2-.5.5-.5z"/></svg></span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></span>
+          <span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h4l4.5 6L17 4h3l-6.2 8L21 20h-4l-4.8-6.4L6.5 20h-3l6.6-8.6z"/></svg></span>
+          <span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2c-.2-.9-.9-1.6-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4c-.9.2-1.6.9-1.8 1.8C2 8.8 2 12 2 12s0 3.2.4 4.8c.2.9.9 1.6 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4c.9-.2 1.6-.9 1.8-1.8.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8zM10 15V9l5.2 3z"/></svg></span>
+        </div>
+      </div>
+      <div><h4>Teams</h4><ul><li><a href="#" onclick="return false">First team</a></li><li><a href="#" onclick="return false">Futures</a></li><li><a href="#" onclick="return false">Women</a></li><li><a href="#" onclick="return false">Neerpede</a></li><li><a href="#" onclick="return false">Futsal</a></li></ul></div>
+      <div><h4>Tickets &amp; Memberships</h4><ul><li><a href="#" onclick="return false">Match tickets</a></li><li><a href="#" onclick="return false">ABO</a></li><li><a href="#" onclick="return false">Resale</a></li><li><a href="#" onclick="return false">Share your ticket</a></li><li><a href="#" onclick="return false">Mauve TV</a></li><li><a href="#" onclick="return false">Mauve+ Silver &amp; Gold</a></li><li><a href="#" onclick="return false">Mauve Ket</a></li></ul></div>
+      <div><h4>Business</h4><ul><li><a href="#" onclick="return false">VIP Tickets</a></li><li><a href="#" onclick="return false">Annual hospitality</a></li><li><a href="#" onclick="return false">Partnerships</a></li><li><a href="#" onclick="return false">Private events</a></li><li><a href="#" onclick="return false">Business portal</a></li></ul></div>
+      <div><h4>Club &amp; Help</h4><ul><li><a href="#" onclick="return false">Trophy room</a></li><li><a href="#" onclick="return false">Tous Mauves</a></li><li><a href="#" onclick="return false">Jobs</a></li><li><a href="#" onclick="return false">App</a></li><li><a href="#" onclick="return false">FAQ</a></li><li><a href="#" onclick="return false">Locations</a></li><li><a href="#" onclick="return false">Press</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 RSC Anderlecht · Fin demo environment, not production</span>
+      <span class="legal"><a href="#" onclick="return false">Cookie Policy</a><a href="#" onclick="return false">Privacy Policy</a><a href="#" onclick="return false">Terms &amp; Conditions</a><a href="#" onclick="return false">Stadium Regulations</a></span>
+    </div>
+  </div>
+</footer>
+
+<div class="modal" id="signin-modal" role="dialog" aria-modal="true" aria-labelledby="signin-title">
+  <div class="modal-dialog">
+    <div class="m-head"><img src="assets/crest.svg" alt=""><h2 id="signin-title">Log in to My RSCA</h2></div>
+    <p>Choose a demo fan to continue. Each one has a different ticket story for the assistant to resolve.</p>
+    <div class="persona-list" id="persona-list"></div>
+    <div class="modal-foot">
+      <span>Real fans log in with their RSCA account via itsme.</span>
+      <button class="btn btn-ghost" id="modal-close" type="button">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script src="persona_jwt.js"></script>
+<script src="assets/app.js?v=20261106"></script>
+<script src="assets/help-drawer.js?v=20261106"></script>
+<script>
+(function () {
+  var rsca = window.rscaDemo;
+  var esc = rsca.esc;
+
+  fetch('assets/wordmark.svg').then(function (r) { return r.text(); }).then(function (svg) {
+    document.querySelectorAll('[data-wordmark]').forEach(function (el) { el.innerHTML = svg; });
+  }).catch(function () {});
+
+  var list = document.getElementById('persona-list');
+  Object.keys(rsca.PERSONAS).forEach(function (key) {
+    var p = rsca.PERSONAS[key];
+    list.insertAdjacentHTML('beforeend',
+      '<button class="persona-btn" type="button" data-persona="' + key + '">' +
+        '<span class="avatar">' + esc(p.initials) + '</span>' +
+        '<span><span class="p-name">' + esc(p.name) + '</span>' +
+        '<span class="p-sub">Mauve ID ' + esc(p.mauve_id) + ' · ' + esc(p.membership.name) + '</span>' +
+        '<span class="p-story">' + esc(p.story) + '</span></span>' +
+        '<span class="chev">&rsaquo;</span></button>');
+  });
+
+  var modal = document.getElementById('signin-modal');
+  function openModal() { modal.classList.add('open'); }
+  function closeModal() { modal.classList.remove('open'); localStorage.removeItem('rsca_pending_prompt'); }
+  document.getElementById('login-btn').addEventListener('click', openModal);
+  document.getElementById('utility-login').addEventListener('click', function (e) { e.preventDefault(); openModal(); });
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+  modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+  list.addEventListener('click', function (e) {
+    var b = e.target.closest('.persona-btn');
+    if (b) rsca.signIn(b.dataset.persona);
+  });
+
+  var stored = rsca.currentPersona();
+  if (stored) {
+    var p = rsca.PERSONAS[stored];
+    document.getElementById('utility-login-label').textContent = 'My RSCA · ' + p.name.split(' ')[0];
+    document.getElementById('utility-login').onclick = function (e) { e.preventDefault(); location.href = 'account.html?intercomTest=true'; };
+    var loginBtn = document.getElementById('login-btn');
+    loginBtn.textContent = 'My RSCA';
+    loginBtn.onclick = function () { location.href = 'account.html?intercomTest=true'; };
+  }
+
+  document.querySelectorAll('[data-open-messenger]').forEach(function (b) { b.addEventListener('click', rsca.show); });
+  document.getElementById('search-icon').addEventListener('click', function () { document.getElementById('search-input').focus(); });
+  document.getElementById('search-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var q = document.getElementById('search-input').value.trim();
+    if (!q) { rsca.show(); return; }
+    rsca.say(q);
+    document.getElementById('search-input').value = '';
+  });
+  document.getElementById('langs').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    document.querySelectorAll('#langs button').forEach(function (x) { x.classList.toggle('active', x === b); });
+  });
+})();
+</script>
+</body>
 </html>
